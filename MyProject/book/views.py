@@ -11,3 +11,6 @@ def login(request):
 
 def relatorio(request):
     return render(request, "relatorio.html")
+
+def updatefligt(request):
+    return render(request, "updateflight.html")
