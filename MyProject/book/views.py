@@ -6,11 +6,14 @@ from django.shortcuts import render
 def crud(request):
     return render(request, "CRUDPage.html")
 
+
 def login(request):
     return render(request, "LogIn.html")
+
 
 def relatorio(request):
     return render(request, "relatorio.html")
 
-def updatefligt(request):
+
+def updateflight(request):
     return render(request, "updateflight.html")
