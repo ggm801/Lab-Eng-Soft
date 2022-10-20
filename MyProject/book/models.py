@@ -1,6 +1,5 @@
 from asyncio import new_event_loop
 from django.db import models
-import datetime
 # Create your models here.
 
 
@@ -24,3 +23,14 @@ class VooReal(models.Model):
     NM_STATUS = models.CharField(max_length=50, null=False)
     class Meta:
         db_table = 'VooReal'
+
+
+class Usuario(models.Model):
+    ID = models.IntegerField(primary_key=True)
+    ID_USUARIO = models.CharField(max_length=12, null=False)
+    FIRST_NAME = models.CharField(max_length=50, null=False)
+    LAST_NAME = models.CharField(max_length=50, null=False)
+    SENHA = models.CharField(max_length=50, null=False)
+    USER_PERMISSION = models.IntegerField(null=False)
+    class Meta:
+        db_table = 'Usuario'

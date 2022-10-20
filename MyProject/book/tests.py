@@ -1,6 +1,6 @@
 from telnetlib import STATUS
 from django.test import TestCase
-from .models import Voo, VooReal
+from .models import Voo, VooReal, Usuario
 # Create your tests here.
 
 ##Create test
@@ -66,3 +66,17 @@ class VooRealTestCRUD (TestCase):
         Voo_1.NM_STATUS = 'Stopped'
         Voo_1.save()
         self.assertEqual(Voo_1.NM_STATUS, 'Stopped')
+
+
+class UsuarioTest (TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Usuario.objects.create( ID_USUARIO = 'USER1', 
+            FIRST_NAME = 'Kylian',
+            LAST_NAME = 'Mbappe',
+            SENHA = 'password',
+            USER_PERMISSION = '1')
+
+    def test_create_id(self):
+        User1 = Usuario.objects.get(ID_USUARIO='USER1')
+        self.assertEqual(User1.ID, 1)
