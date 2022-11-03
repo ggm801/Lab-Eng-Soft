@@ -17,3 +17,6 @@ def relatorio(request):
 
 def updateflight(request):
     return render(request, "updateflight.html")
+
+def formpage(request):
+    return render(request, "formPage.html")

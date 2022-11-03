@@ -22,5 +22,6 @@ urlpatterns = [
     path('crud', views.crud),
     path('login', views.login),
     path('relatorio', views.relatorio),
-    path('atualizarvoo', views.updateflight)
+    path('atualizarvoo', views.updateflight),
+    path('formPage', views.formpage)
 ]

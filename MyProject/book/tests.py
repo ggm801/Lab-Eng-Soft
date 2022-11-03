@@ -80,3 +80,26 @@ class UsuarioTest (TestCase):
     def test_create_id(self):
         User1 = Usuario.objects.get(ID_USUARIO='USER1')
         self.assertEqual(User1.ID, 1)
+
+    def test_password_correct(self):
+        User1 = Usuario.objects.get(ID_USUARIO='USER1')
+        self.assertEqual(User1.SENHA, 'password')
+
+
+    def test_update(self):
+        User1 = Usuario.objects.get(ID_USUARIO='USER1')
+        self.assertEqual(User1.ID, 1)
+        User1.SENHA='new_password'
+        User1.save()
+        self.assertEqual(User1.SENHA, 'new_password')
+
+    def test_delete_ID_usuario(self):
+        tamOrig= len(Usuario.objects.all())
+        Usuario.objects.filter(ID=1).delete()
+        tamFinal = len(Usuario.objects.all())
+        self.assertEqual(tamFinal,tamOrig -1)
+
+    def test_retrive_permission_usuario(self):
+        User1 = Usuario.objects.get(ID='1')
+        print(User1.FIRST_NAME)
+        self.assertEqual(User1.USER_PERMISSION, 1)

@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo_main.css' %}">
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/templatemo_script.js' %}"></script>
+</head>
+
+<body>
+    <div id="main-wrapper">
+        <div class="navbar navbar-inverse" role="navigation">
+            <div class="navbar-header">
+                <div class="logo">
+                    <h1>Sistema de monitoramento de voos de aviões</h1>
+                </div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+        </div>
+        <div class="template-page-wrapper">
+            <div class="navbar-collapse collapse templatemo-sidebar">
+                <ul class="templatemo-sidebar-menu">
+                    <li><a href="crud"><i class="fa fa-home"></i>CRUD</a></li>
+                    <li><a href="relatorio"><i class="fa fa-cubes"></i>Relatório</a></li>
+                    <li><a href="atualizarvoo"><i class="fa fa-cog"></i>Atualizar voo</a></li>
+                    <li><a href="login"><i class="fa fa-sign-out"></i>Sair</a></li>
+                </ul>
+            </div>
+            <!--/.navbar-collapse -->
+
+            <div class="templatemo-content-wrapper">
+                <div class="templatemo-content">
+                    <h1>Tabela de voos</h1>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form role="form" method="get" action="crud">
+                                <div class="table-responsive">
+                                    <h4 class="margin-bottom-15">New Voos Table</h4>
+                                    <table class="table table-striped table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>ID do Voo</th>
+                                                <th>Previsto Saida</th>
+                                                <th>Previsto Chegada</th>
+                                                <th>Aeroporto Saida</th>
+                                                <th>Aeroporto Chegada</th>
+                                                <th>Companhia Aerea</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <div class="form-group">
+                                                    <td><input type="number" id="id" name="id" step="1"
+                                                            style="width: 80px;" required>
+                                                    </td>
+                                                </div>
+                                                <div class="form-group">
+                                                    <td><input type="datetime-local" id="id" name="saida" required></td>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <td><input type="datetime-local" id="id" name="chegada" required>
+                                                    </td>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <td><input type="text" id="Aeroporto Saida" name="Aeroporto Saida"
+                                                            required>
+                                                    </td>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <td><input type="text" id="Aeroporto Saida" name="Aeroporto Chegada"
+                                                            required></td>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <td><input type="text" id="Companhia Aerea" name="Companhia Aerea"
+                                                            required>
+                                                    </td>
+                                                </div>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn btn-default" value="Salvar" type="submit"></input>
+                                </div>
+                            </form>
+                            <td><a href="crud" class="btn btn-default">Cancelar</a></td>
+
+
+                            <div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span
+                                                        aria-hidden="true">&times;</span><span
+                                                        class="sr-only">Close</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Are you sure you want to
+                                                    sign
+                                                    out?
+                                                </h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="sign-in.html" class="btn btn-primary">Yes</a>
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <footer class="templatemo-footer">
+                                    <div class="templatemo-copyright">
+                                        <p>Copyright &copy; PCS3643 - Laboratório de Engenharia de Software I
+                                            <!-- Credit: www.templatemo.com -->
+                                        </p>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+</body>
+
+</html>
