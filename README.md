@@ -13,12 +13,21 @@
 git clone https://github.com/ggm801/Lab-Eng-Soft.git
 ```
 
-### Segundo passo - ativar o ambiente virtual
-##### No terminal de comando utilize:
+### Segundo passo - criar e ativar o ambiente virtual
+##### No terminal de comando primeiro utilize:
+
+```
+python -m venv env
+```
+
+##### Depois utilize o comando:
 
 ```
 .\env\bin\Activate.ps1
 ```
+
+###### OBS: Para esses comandos funcionarem é necessário ter o python adicionado ao path. Se não sabe como fazer isso acesse esse link:
+###### https://www.javatpoint.com/how-to-set-python-path
 
 ### Terceiro passo - Start server
 
