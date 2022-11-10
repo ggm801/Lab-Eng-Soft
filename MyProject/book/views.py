@@ -1,14 +1,21 @@
 from django.shortcuts import render
-
+from .models import Voo, VooReal, Usuario
+from django.template import loader
+from django.http import HttpResponse
+from django.shortcuts import render
+from .forms import criarVoo
 # Create your views here.
 
 
 def crud(request):
-    return render(request, "CRUDPage.html")
+    voo = list(Voo.objects.values())
+    template = loader.get_template("CRUDPage.html")
+    context = {'voo': voo}
+    return HttpResponse(template.render(context, request))
 
-
-def login(request):
-    return render(request, "LogIn.html")
+def criarVoo(request):
+     if request.method == "POST":
+      vooForm = criarVoo(request.POST)
 
 
 def relatorio(request):

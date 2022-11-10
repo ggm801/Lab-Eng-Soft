@@ -11,7 +11,8 @@ class VooTestCRUD (TestCase):
                             DH_PREVISTO_CHEGADA='2022-10-10 18:40:32',
                            ID_VOO='100',
                             NM_AEROPORTO_SAIDA='Sao Paulo - Viracopos (VCP)',
-                             NM_AEROPORTO_CHEGADA='Brasília (BSB)', NM_COMPANHIA_AEREA='AZUL')       
+                             NM_AEROPORTO_CHEGADA='Brasília (BSB)', 
+                             NM_COMPANHIA_AEREA='AZUL')       
 
     def test_create_id(self):
         Voo_1 = Voo.objects.get(ID_VOO='100')
