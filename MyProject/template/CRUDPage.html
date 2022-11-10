@@ -40,6 +40,7 @@
           <div class="templatemo-content-wrapper">
             <div class="templatemo-content">
               <h1>Tabela de voos</h1>
+
     
               <div class="row">
                 <div class="col-md-12">
@@ -60,26 +61,44 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>John</td>
-                          <td>Smith</td>
-                          <td>@js</td>
-                          <td>a@company.com</td>
-                          <td>a@company.com</td>
-                          <td><a href="#" class="btn btn-default">Edit</a></td>                    
-                          <td><a href="#" class="btn btn-link">Delete</a></td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>Bill</td>
-                          <td>Digital</td>
-                          <td>@bd</td>
-                          <td>bd@company.com</td>
-                          <td>a@company.com</td>
-                          <td><a href="#" class="btn btn-default">Edit</a></td>
-                          <td><a href="#" class="btn btn-link">Delete</a></td>
-                        </tr>
+
+                        <ol>  
+                          {% for v in voo %}  
+                          <tr>
+                            <td>{{v.ID}}</td>
+                            <td>{{v.DH_PREVISTO_SAIDA}}</td>
+                            <td>{{v.DH_PREVISTO_CHEGADA}}</td>
+                            <td>{{v.NM_AEROPORTO_SAIDA}}</td>
+                            <td>{{v.NM_AEROPORTO_CHEGADA}}</td>
+                            <td>{{v.NM_COMPANHIA_AEREA}}</td>
+                            <td><a href="#" class="btn btn-default">Edit</a></td>                    
+                            <td><a href="#" class="btn btn-link">Delete</a></td>
+                          </tr>
+                          <tr>
+                            <td>{{v.ID}}</td>
+                            <td>{{v.DH_PREVISTO_SAIDA}}</td>
+                            <td>{{v.DH_PREVISTO_CHEGADA}}</td>
+                            <td>{{v.NM_AEROPORTO_SAIDA}}</td>
+                            <td>{{v.NM_AEROPORTO_CHEGADA}}</td>
+                            <td>{{v.NM_COMPANHIA_AEREA}}</td>
+                            <td><a href="#" class="btn btn-default">Edit</a></td>                    
+                            <td><a href="#" class="btn btn-link">Delete</a></td>
+                          </tr>
+                          <tr>
+                            <td>{{v.ID}}</td>
+                            <td>{{v.DH_PREVISTO_SAIDA}}</td>
+                            <td>{{v.DH_PREVISTO_CHEGADA}}</td>
+                            <td>{{v.NM_AEROPORTO_SAIDA}}</td>
+                            <td>{{v.NM_AEROPORTO_CHEGADA}}</td>
+                            <td>{{v.NM_COMPANHIA_AEREA}}</td>
+                            <td><a href="#" class="btn btn-default">Edit</a></td>                    
+                            <td><a href="#" class="btn btn-link">Delete</a></td>
+                          </tr>
+                          {% endfor %} 
+                          </ol>
+                      
+                      </tbody>
+                      <tbody>
                       
                       </tbody>
                     </table>
