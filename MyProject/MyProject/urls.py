@@ -20,9 +20,9 @@ from book import views
 urlpatterns = [
     path('admin', admin.site.urls),
     path('crud', views.crud, name='crud'),
-    path('login', views.login),
-    path('relatorio', views.relatorio),
-    path('atualizarvoo', views.updateflight),
+    path('login', views.login, name='login'),
+    path('relatorio', views.relatorio, name='relatorio'),
+    path('atualizarvoo', views.updateflight, name='atualizarvoo'),
     path('formPage', views.vooForm),
     path('update_voo/<str:pk>', views.vooUpdateForm, name='update_voo'),
     path('delete_voo/<str:pk>', views.deleteVoo, name='delete_voo')

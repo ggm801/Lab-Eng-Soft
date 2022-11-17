@@ -32,10 +32,10 @@
     <div class="template-page-wrapper">
       <div class="navbar-collapse collapse templatemo-sidebar">
         <ul class="templatemo-sidebar-menu">
-          <li><a href="crud"><i class="fa fa-home"></i>CRUD</a></li>
-          <li><a href="relatorio"><i class="fa fa-cubes"></i>Relatório</a></li>
-          <li><a href="atualizarvoo"><i class="fa fa-cog"></i>Atualizar voo</a></li>
-          <li><a href="login"><i class="fa fa-sign-out"></i>Sair</a></li>
+          <li><a href="{% url 'crud' %}"><i class="fa fa-home"></i>CRUD</a></li>
+          <li><a href="{% url 'relatorio' %}"><i class="fa fa-cubes"></i>Relatório</a></li>
+          <li><a href="{% url 'atualizarvoo' %}"><i class="fa fa-cog"></i>Atualizar voo</a></li>
+          <li><a href="{% url 'login' %}"><i class="fa fa-sign-out"></i>Sair</a></li>
         </ul>
       </div>
       <!--/.navbar-collapse -->

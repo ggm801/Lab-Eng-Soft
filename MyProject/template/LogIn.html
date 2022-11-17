@@ -14,10 +14,7 @@
   <script src="{% static 'bootstrap.min.js' %}"></script>
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'js/templatemo_script.js' %}"></script>
-  <!-- 
-Dashboard Template 
-http://www.templatemo.com/preview/templatemo_415_dashboard
--->
+
 </head>
 
 <body>
@@ -31,9 +28,12 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     </div>
     <div class="template-page-wrapper">
       <form class="form-horizontal templatemo-signin-form" role="form" action="crud" method="get">
+        {% csrf_token %}
         <div class="form-group">
           <div class="col-md-12">
-            <label for="username" class="col-sm-2 control-label">Matrícula:</label>
+            {{form.username.errors}}
+            <label for="username" name='username' class="col-sm-2 control-label">Matrícula:</label>
+            {{form.username}}
             <div class="col-sm-10">
               <input type="text" class="form-control" id="username" placeholder="Username" required>
             </div>
@@ -41,7 +41,9 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
         </div>
         <div class="form-group">
           <div class="col-md-12">
+            {{form.password.errors}}
             <label for="password" class="col-sm-2 control-label">Senha:</label>
+            {{form.password}}
             <div class="col-sm-10">
               <input type="password" class="form-control" id="password" placeholder="Password" required>
             </div>
