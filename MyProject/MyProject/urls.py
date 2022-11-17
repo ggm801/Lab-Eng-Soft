@@ -20,7 +20,7 @@ from book import views
 urlpatterns = [
     path('admin', admin.site.urls),
     path('crud', views.crud),
-    path('login', views.login),
+    path('login', views.logar_usuario),
     path('relatorio', views.relatorio),
     path('atualizarvoo', views.updateflight)
 ]

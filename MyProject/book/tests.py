@@ -80,3 +80,11 @@ class UsuarioTest (TestCase):
     def test_create_id(self):
         User1 = Usuario.objects.get(ID_USUARIO='USER1')
         self.assertEqual(User1.ID, 1)
+
+    def test_permission(self):
+        User1 = Usuario.objects.get(ID_USUARIO='USER1')
+        self.assertEqual(User1.USER_PERMISSION, 1)
+
+    def test_password(self):
+        User1 = Usuario.objects.get(ID_USUARIO='USER1')
+        self.assertEqual(User1.SENHA, 'password')

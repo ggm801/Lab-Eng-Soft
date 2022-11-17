@@ -30,20 +30,26 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
       </div>
     </div>
     <div class="template-page-wrapper">
-      <form class="form-horizontal templatemo-signin-form" role="form" action="crud" method="get">
+      <form class="form-horizontal templatemo-signin-form"  method ="post" role="form" action="crud" method="get">
+       
+        {% csrf_token %}
         <div class="form-group">
           <div class="col-md-12">
+            {{form_login.username.errors}}
             <label for="username" class="col-sm-2 control-label">Matrícula:</label>
+            {{form_login.username}}
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="username" placeholder="Username" required>
+              <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
             </div>
           </div>
         </div>
         <div class="form-group">
           <div class="col-md-12">
+            {{form_login.password.errors}}
             <label for="password" class="col-sm-2 control-label">Senha:</label>
+            {{form_login.password}}
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="password" placeholder="Password" required>
+              <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
             </div>
           </div>
         </div>
@@ -61,7 +67,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
         <div class="form-group">
           <div class="col-md-12">
             <div class="col-sm-offset-2 col-sm-10">
-              <input type="submit" value="Sign in" class="btn btn-default">
+              <input type="submit" value="Signin" class="btn btn-default">
             </div>
           </div>
         </div>
