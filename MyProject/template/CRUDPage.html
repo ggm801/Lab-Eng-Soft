@@ -40,9 +40,28 @@
       </div>
       <!--/.navbar-collapse -->
 
+
+
       <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
+
           <h1>Tabela de voos</h1>
+
+
+              <div class="row">
+                <div class="col-md-12">
+                  <form method="GET" id="id-form">
+                    <div class="row">
+                      <div class="col-md-6 margin-bottom-15">
+                        <label for="Id" class="control-label">Buscar voo por ID (NÃO FUNCIONA AINDA)</label>
+                        <input type="text" class="form-control" id="id" value="" name="id">
+                        <i class="fas fa-id" id="id-btn"></i>
+                  </form>
+
+
+                      </div>
+                    </div>
+                </div>
 
 
           <div class="row">
@@ -70,7 +89,7 @@
                     <ol>
                       {% for v in voo %}
                       <tr>
-                        <td>{{v.ID}}</td>
+                        <td>{{v.ID_VOO}}</td>
                         <td>{{v.DH_PREVISTO_SAIDA}}</td>
                         <td>{{v.DH_PREVISTO_CHEGADA}}</td>
                         <td>{{v.NM_AEROPORTO_SAIDA}}</td>

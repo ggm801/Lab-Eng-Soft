@@ -12,3 +12,12 @@ class VooFormulario(forms.ModelForm):
                   "NM_AEROPORTO_CHEGADA": "AEROPORTO CHEGADA", "NM_COMPANHIA_AEREA": "COMPANHIA AEREA"}
 
         #widgets = {"DH_PREVISTO_SAIDA": forms.TimeInput}
+
+class VooFormularioUpdate(forms.ModelForm):
+    class Meta:
+        model = Voo
+        fields = ['DH_PREVISTO_SAIDA', 'DH_PREVISTO_CHEGADA',
+                  'NM_AEROPORTO_SAIDA', 'NM_AEROPORTO_CHEGADA', 'NM_COMPANHIA_AEREA']
+        labels = {"DH_PREVISTO_SAIDA": "HORÁRIO DE SAIDA PREVISTO",
+                  "DH_PREVISTO_CHEGADA": "HORÁRIO DE CHEGADA PREVISTO", "NM_AEROPORTO_SAIDA": "AEROPORTO SAIDA",
+                  "NM_AEROPORTO_CHEGADA": "AEROPORTO CHEGADA", "NM_COMPANHIA_AEREA": "COMPANHIA AEREA"}
