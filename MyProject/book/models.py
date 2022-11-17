@@ -1,6 +1,4 @@
-from asyncio import new_event_loop
 from django.db import models
-import datetime
 # Create your models here.
 
 
@@ -12,6 +10,7 @@ class Voo(models.Model):
     NM_AEROPORTO_SAIDA = models.CharField(max_length=50, null=False)
     NM_AEROPORTO_CHEGADA = models.CharField(max_length=50, null=False)
     NM_COMPANHIA_AEREA = models.CharField(max_length=50, null=False)
+
     class Meta:
         db_table = 'Voo'
 
@@ -22,6 +21,7 @@ class VooReal(models.Model):
     DH_REAL_SAIDA = models.DateTimeField(auto_now=True)
     DH_REAL_CHEGADA = models.DateTimeField(auto_now=True)
     NM_STATUS = models.CharField(max_length=50, null=False)
+
     class Meta:
         db_table = 'VooReal'
 
@@ -33,5 +33,6 @@ class Usuario(models.Model):
     LAST_NAME = models.CharField(max_length=50, null=False)
     SENHA = models.CharField(max_length=50, null=False)
     USER_PERMISSION = models.IntegerField(null=False)
+
     class Meta:
         db_table = 'Usuario'
