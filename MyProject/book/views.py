@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Voo
 from django.template import loader
 from django.http import HttpResponse
@@ -29,6 +29,17 @@ def vooForm(request):
     return render(request, 'vooForm.html', context)
 
 
+def vooUpdateForm(request, pk):
+    voo = Voo.objects.get(ID=pk)
+    form = VooFormulario(instance=voo)
+    if request.method == 'POST':
+        form = VooFormulario(request.POST, instance=voo)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'vooForm.html', context)
+
+
 def login(request):
     return render(request, "Login.html")
 
@@ -36,5 +47,10 @@ def login(request):
 def updateflight(request):
     return render(request, "updateflight.html")
 
-# def formpage(request):
-#    return render(request, "formPage.html")
+def deleteVoo(request, pk):
+    voo = Voo.objects.get(ID=pk)
+    if request.method == "POST":
+        voo.delete()
+        return redirect('/crud')
+    context = { 'item': voo }
+    return render(request, 'deleteVoo.html', context)

@@ -71,8 +71,8 @@
                             <td>{{v.NM_AEROPORTO_SAIDA}}</td>
                             <td>{{v.NM_AEROPORTO_CHEGADA}}</td>
                             <td>{{v.NM_COMPANHIA_AEREA}}</td>
-                            <td><a href="#" class="btn btn-default">Edit</a></td>                    
-                            <td><a href="#" class="btn btn-link">Delete</a></td>
+                            <td><a href="{% url 'update_voo' v.ID %}" class="btn btn-default">Edit</a></td>                    
+                            <td><a href="{% url 'delete_voo' v.ID %}" class="btn btn-link">Delete</a></td>
                           </tr>
                           <tr>
                           {% endfor %} 
