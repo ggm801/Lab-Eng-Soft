@@ -6,18 +6,21 @@ from django.shortcuts import render
 from .forms import VooFormulario, VooFormularioUpdate
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
+@login_required(login_url='/accounts/login')
 def crud(request):
     voo = list(Voo.objects.values())
     template = loader.get_template("CRUDPage.html")
     context = {'voo': voo}
     return HttpResponse(template.render(context, request))
 
-
+@login_required(login_url='/accounts/login')
 def relatorio(request):
     return render(request, "relatorio.html")
 
-
+@login_required(login_url='/accounts/login')
 def vooForm(request):
     form = VooFormulario()
     if request.method == 'POST':
@@ -28,7 +31,7 @@ def vooForm(request):
     context = {'form': form}
     return render(request, 'vooForm.html', context)
 
-
+@login_required(login_url='/accounts/login')
 def vooUpdateForm(request, pk):
     voo = Voo.objects.get(ID=pk)
     form1 = VooFormularioUpdate(instance=voo)
@@ -56,13 +59,13 @@ def My_view(request):
         return redirect('accounts/login/')
     return render(request, 'registration/Login.html')
 
-
+@login_required(login_url='/accounts/login')
 def updateflight(request):
     vooReal = list(VooReal.objects.values())
     template = loader.get_template("updateflight.html")
     context = {'voo': vooReal}
     return HttpResponse(template.render(context, request))
-
+@login_required(login_url='/accounts/login')
 def deleteVoo(request, pk):
     voo = Voo.objects.get(ID=pk)
     if request.method == "POST":
