@@ -23,5 +23,5 @@ urlpatterns = [
     path('login', views.login),
     path('relatorio', views.relatorio),
     path('atualizarvoo', views.updateflight),
-    path('formPage', views.formpage)
+    path('formPage', views.vooForm)
 ]
