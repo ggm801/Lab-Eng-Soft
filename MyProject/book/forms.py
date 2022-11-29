@@ -13,6 +13,11 @@ class VooFormulario(forms.ModelForm):
 
         #widgets = {"DH_PREVISTO_SAIDA": forms.TimeInput}
 
+class RelatorioFormulario(forms.ModelForm):
+    class Meta:
+        model = Voo
+        fields = ['DH_PREVISTO_SAIDA','DH_PREVISTO_CHEGADA','NM_AEROPORTO_SAIDA','NM_AEROPORTO_CHEGADA']
+
 class VooFormularioUpdate(forms.ModelForm):
     class Meta:
         model = Voo

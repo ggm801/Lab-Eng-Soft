@@ -3,7 +3,7 @@ from .models import Voo, VooReal
 from django.template import loader
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import VooFormulario, VooFormularioUpdate
+from .forms import VooFormulario, VooFormularioUpdate, RelatorioFormulario
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -16,6 +16,10 @@ def crud(request):
     context = {'voo': voo}
     return HttpResponse(template.render(context, request))
 
+# Definir: o que é o relatório
+# O que vc precisa pro relatório: datas, quais voos
+# O Forms de inputs de coisas pro relatório
+# fzr pdf
 @login_required(login_url='/accounts/login')
 def relatorio(request):
     return render(request, "relatorio.html")
@@ -30,6 +34,17 @@ def vooForm(request):
             return redirect('/crud')
     context = {'form': form}
     return render(request, 'vooForm.html', context)
+
+@login_required(login_url='/accounts/login')
+def relatorioForm(request):
+    form = RelatorioFormulario()
+    if request.method == 'POST':
+        form = RelatorioFormulario(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/relatorio')
+    context = {'form': form}
+    return render(request, 'relatorioForm.html', context)
 
 @login_required(login_url='/accounts/login')
 def vooUpdateForm(request, pk):
