@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -36,3 +37,9 @@ class Usuario(models.Model):
 
     class Meta:
         db_table = 'Usuario'
+
+class User(models.Model):
+  
+    class Meta:
+        permissions = (("access_relatorio", "can access relatorio page"),("generate_relatorio ","can generate relatorio"),("access_atualizar","can access to atualizar voo page"),)
+        
