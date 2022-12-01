@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de pedidos</title>
+</head>
+<body>
+
+<h1>Relatório de pedidos</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Número do voo</th>
+            <th>Previsto Saida</th>
+            <th>Previsto Chegada</th>
+            <th>Aeroporto Saida</th>
+            <th>Aeroporto Chegada</th>
+            <th>Companhia Aerea</th>
+
+        </tr>
+    </thead>
+    <tbody>
+    {% for v in voo %}
+        <tr>
+            <td>{{v.ID_VOO}}</td>
+            <td>{{v.DH_PREVISTO_SAIDA}}</td>
+            <td>{{v.DH_PREVISTO_CHEGADA}}</td>
+            <td>{{v.NM_AEROPORTO_SAIDA}}</td>
+            <td>{{v.NM_AEROPORTO_CHEGADA}}</td>
+            <td>{{v.NM_COMPANHIA_AEREA}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

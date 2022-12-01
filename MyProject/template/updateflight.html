@@ -71,7 +71,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% if perms.book.view_voo_real %}
+                    {% if perms.book.view_voo_atual %}
                         <ol>
                           {% for v in vooReal%}
                           <tr>                    
@@ -80,7 +80,7 @@
                             <td>{{v.DH_REAL_CHEGADA}}</td>
                             <td>{{v.NM_STATUS}}</td>
                             <td>
-                              {% if perms.book.change_voo_real %}
+                              {% if perms.book.edit_atual %}
                               <a href="{% url 'update_voo_real' v.ID %}" class="btn btn-default">Edit</a>
                               {% endif %}  
                               {% endfor %}

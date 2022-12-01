@@ -1,9 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 
+
 class Voo(models.Model):
+    
+
+
     ID = models.IntegerField(primary_key=True)
     DH_PREVISTO_SAIDA = models.DateTimeField(auto_now=False)
     DH_PREVISTO_CHEGADA = models.DateTimeField(auto_now=False)
@@ -14,6 +20,19 @@ class Voo(models.Model):
 
     class Meta:
         db_table = 'Voo'
+    def clean(self) :
+        if self.DH_PREVISTO_SAIDA > self.DH_PREVISTO_CHEGADA :
+            raise ValidationError('Start date cannot precede end date')
+    
+    def __str__(self):
+        return str(self.DH_PREVISTO_SAIDA)
+
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        return super().save(*args, **kwargs)
+
+    
 
 
 class VooReal(models.Model):
@@ -41,5 +60,5 @@ class Usuario(models.Model):
 class User(models.Model):
   
     class Meta:
-        permissions = (("access_relatorio", "can access relatorio page"),("generate_relatorio ","can generate relatorio"),("access_atualizar","can access to atualizar voo page"),)
+        permissions = (("view_voo_atual", "can view voo atual"),("access_relatorio", "can access relatorio page"),("generate_relatorio ","can generate relatorio"),("access_atualizar","can access to atualizar voo page"),("edit_atual", "can edit oo real"),)
         

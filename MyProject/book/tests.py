@@ -10,7 +10,7 @@ class VooTestCRUD (TestCase):
     @classmethod
     def setUpTestData(cls):
         Voo.objects.create(DH_PREVISTO_SAIDA='2022-10-10 12:40:32',
-                           DH_PREVISTO_CHEGADA='2022-10-10 18:40:32',
+                           DH_PREVISTO_CHEGADA='2022-10-10 11:40:32',
                            ID_VOO='100',
                            NM_AEROPORTO_SAIDA='Sao Paulo - Viracopos (VCP)',
                            NM_AEROPORTO_CHEGADA='Brasília (BSB)',

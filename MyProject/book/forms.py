@@ -13,10 +13,12 @@ class VooFormulario(forms.ModelForm):
 
         #widgets = {"DH_PREVISTO_SAIDA": forms.TimeInput}
 
+
 class RelatorioFormulario(forms.ModelForm):
-    class Meta:
-        model = Voo
-        fields = ['DH_PREVISTO_SAIDA','DH_PREVISTO_CHEGADA','NM_AEROPORTO_SAIDA','NM_AEROPORTO_CHEGADA']
+    relatorio = forms.CharField(label="Relatorio")
+    DH_PREVISTO_CHEGADA_i = forms.DateField(label="data prevista de chegada inicial")
+    DH_PREVISTO_CHEGADA_f = forms.DateField(label="data prevista de chegada final")
+    
 
 class VooFormularioUpdate(forms.ModelForm):
     class Meta:
@@ -29,6 +31,8 @@ class VooFormularioUpdate(forms.ModelForm):
 
 
 CHOICES = [('pronto','pronto'),('cancelado','cancelado'),('Não iniciado','Não iniciado'),('Embarcando','Embarcando'),('Programado','Programado'),('Taxiando','Taxiando'),('Decolando','Decolando'),('Em Voo','Em Voo'),('Pousando','Pousando'),('Aterrissado','Aterrissado'),]
+
+
 
 class VooRealFormularioUpdate(forms.ModelForm):
         NM_STATUS = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
