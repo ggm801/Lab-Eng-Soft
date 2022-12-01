@@ -24,6 +24,8 @@ python -m venv env
 
 ```
 .\env\bin\Activate.ps1
+
+ .\env\Scripts\activate
 ```
 
 ##### Por último utilize o comando:
