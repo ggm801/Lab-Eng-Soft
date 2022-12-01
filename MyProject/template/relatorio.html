@@ -48,81 +48,35 @@
             </div>
           </div>
 
-
           <h1>Gerar relatórios</h1>
 
           <div>
             <p>Tipo de relatório por:</p>
-            <form>
-              <input type="radio" name="type" id="aeroporto" value="aeroporto">
-              <label for="aeroporto">Aeroporto</label>
-              <input type="radio" name="type" id="companhia" value="companhia">
-              <label for="companhia">Companhia</label>
+            <form method="POST" action="/relatorio/" >
+              {% csrf_token %}
+              <select id="relatorio" name="relatorio" class="form-select" aria-label="Default select example">
+                <option value="aeroporto">Aeroporto</option>
+                <option value="companhia">Companhia</option>
+              </select>
+              <br>
+              <input type="date" name="initial-date" id="DH_PREVISTO_CHEGADA_i">
+              <label for="DH_PREVISTO_CHEGADA_i">Data inicial</label>
+              <br>
+              <input type="date" name="final-date" id="DH_PREVISTO_CHEGADA_f">
+              <label for="DH_PREVISTO_CHEGADA_f">Data final</label>
+              <br>
+              <input type="submit" value="Submit">
             </form>
           </div>
 
-          <h4>
-            <td><a href="relatorioFormPage" class="btn btn-default">Adicionar Voo</a></td>
-          </h4>
-          
-          <div class="row">
-            <div class="col-md-12">
-    
-                  <!-- Modal -->
-                  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal"><span
-                              aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                          <h4 class="modal-title" id="myModalLabel">Are you sure you want to sign out?</h4>
-                        </div>
-                        <div class="modal-footer">
-                          <a href="sign-in.html" class="btn btn-primary">Yes</a>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-    
-                  <footer class="templatemo-footer">
-                    <div class="templatemo-copyright">
-                      <p>Copyright &copy; PCS3643 - Laboratório de Engenharia de Software I
-                        <!-- Credit: www.templatemo.com -->
-                      </p>
-                    </div>
-                  </footer>
-                </div>
-              </div>
-
-              <!-- Modal -->
-              <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal"><span
-                          aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Are you sure you want to sign out?</h4>
-                    </div>
-                    <div class="modal-footer">
-                      <a href="sign-in.html" class="btn btn-primary">Yes</a>
-                      <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <footer class="templatemo-footer">
-                <div class="templatemo-copyright">
-                  <p>Grupo 3 &copy; PCS3643 - Laboratório de Engenharia de Software I
-                    <!-- Credit: www.templatemo.com -->
-                  </p>
-                </div>
-              </footer>
+          <footer class="templatemo-footer">
+            <div class="templatemo-copyright">
+              <p>Grupo 3 &copy; PCS3643 - Laboratório de Engenharia de Software I
+                <!-- Credit: www.templatemo.com -->
+              </p>
             </div>
-          </div>
+          </footer>
+      
 </body>
 
 </html>

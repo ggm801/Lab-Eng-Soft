@@ -23,9 +23,21 @@ def crud(request):
 # fzr pdf
 @login_required(login_url='/accounts/login')
 @permission_required('book.access_relatorio', raise_exception= PermissionDenied)
-def relatorio(request):
-
-    return render(request, "relatorio.html")
+def relatorio(request) :
+    if request.method == "POST" :
+        print('1')
+        form = RelatorioFormulario(request.POST)
+        if form.is_valid():
+            print('2')
+            relatorio = form.cleaned_data['relatorio']
+            DH_PREVISTO_CHEGADA_i = form.cleaned_data['DH_PREVISTO_CHEGADA_i']
+            DH_PREVISTO_CHEGADA_f = form.cleaned_data['DH_PREVISTO_CHEGADA_f']
+            print(relatorio)
+            print(DH_PREVISTO_CHEGADA_i)
+            print(DH_PREVISTO_CHEGADA_f)
+            return render(request, "relatorio.html")
+    else:
+        return render(request, "relatorio.html")
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.add_voo')
