@@ -64,22 +64,26 @@
                   <thead>
                     <tr>
                       <th>Número do voo</th>
-                      <th>Horário de Saida</th>
-                      <th>Horário de Chegada</th>
+                      <th>Horário de Saida Real</th>
+                      <th>Horário de Chegada Real</th>
                       <th>Status</th>
                       <th>Atualizar Status</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% if perms.book.view_voo_real %}
                         <ol>
-                          {% for v in vooReal %}
-                          <tr>                        
-                            <td>{{v.ID_VOO}}</td>
+                          {% for v in vooReal%}
+                          <tr>                    
+                            <td>{{v.ID_VOO.ID_VOO}}</td>
                             <td>{{v.DH_REAL_SAIDA}}</td>
                             <td>{{v.DH_REAL_CHEGADA}}</td>
                             <td>{{v.NM_STATUS}}</td>
                             <td>
+                              {% if perms.book.change_voo_real %}
                               <a href="{% url 'update_voo_real' v.ID %}" class="btn btn-default">Edit</a>
+                              {% endif %}  
+                              {% endfor %}
                               <!-- Split button 
                               <div class="btn-group">
                                 <select name="status" id="status">
@@ -95,8 +99,9 @@
                                   <option value="Aterrissado">Aterrissado</option>
                                 </select>
                               </div>-->
-                          {% endfor %}
-                        </ol>         
+                          
+                        </ol>   
+                        {% endif %}      
                       </tr>
                     </tr>
                     <tr>

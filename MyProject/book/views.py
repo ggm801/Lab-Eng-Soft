@@ -55,7 +55,8 @@ def relatorioForm(request):
 @permission_required('book.change_voo_real')
 def vooUpdateForm(request, pk):
     vooReal1 = VooReal.objects.get(ID=pk)
-    form2 = VooRealFormularioUpdate()
+    initial_data={'DH_REAL_CHEGADA':vooReal1.DH_REAL_CHEGADA,'DH_REAL_SAIDA':vooReal1.DH_REAL_SAIDA,'NM_STATUS':vooReal1.NM_STATUS}
+    form2 = VooRealFormularioUpdate(initial=initial_data)
     if request.method == 'POST':
         form2 = VooRealFormularioUpdate(request.POST, instance=vooReal1)
         if form2.is_valid():
@@ -81,12 +82,14 @@ def My_view(request):
     return render(request, 'registration/Login.html')
 
 @login_required(login_url='/accounts/login')
-@permission_required('book.change_voo_real', raise_exception= PermissionDenied)
+@permission_required('book.access_atualizar', raise_exception= PermissionDenied)
 def updateflight(request):
-    voo = list(Voo.objects.values())
+    voo = Voo.objects.values()
     vooReal = list(VooReal.objects.values())
+    vooReal = list(voo.values())
+    vooReal =  list(VooReal.objects.select_related("ID_VOO").all())
     template = loader.get_template("updateflight.html")
-    context = {'vooReal': vooReal}
+    context = {'vooReal': vooReal,'voo': voo}
     return HttpResponse(template.render(context, request))
 
 @login_required(login_url='/accounts/login')
