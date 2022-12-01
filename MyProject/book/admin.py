@@ -4,3 +4,4 @@ from .models import Usuario, Voo, VooReal
 
 admin.site.register(Voo)
 admin.site.register(VooReal)
+

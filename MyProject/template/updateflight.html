@@ -66,34 +66,38 @@
                       <th>Número do voo</th>
                       <th>Horário de Saida</th>
                       <th>Horário de Chegada</th>
+                      <th>Status</th>
                       <th>Atualizar Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>John</td>
-                      <td>Smith</td>
-                      <td>@js</td>
-                      <td>CONGONHAS</td>
-                      <td>VIRACOPOS</td>                      
-                      <td>
-                        <!-- Split button -->
-                        <div class="btn-group">
-                          <select name="status" id="status">
-                            <option value="Não iniciado">Não iniciado</option>
-                            <option value="Cancelado">Cancelado</option>
-                            <option value="Embarcando">Embarcando</option>
-                            <option value="Programado">Programado</option>
-                            <option value="Taxiando">Taxiando</option>
-                            <option value="Pronto">Pronto</option>
-                            <option value="Decolando">Decolando</option>
-                            <option value="Em Voo">Em Voo</option>
-                            <option value="Pousando">Pousando</option>
-                            <option value="Aterrissado">Aterrissado</option>
-                          </select>
-                        </div>
-                      </td>
+                        <ol>
+                          {% for v in vooReal %}
+                          <tr>                        
+                            <td>{{v.ID_VOO}}</td>
+                            <td>{{v.DH_REAL_SAIDA}}</td>
+                            <td>{{v.DH_REAL_CHEGADA}}</td>
+                            <td>{{v.NM_STATUS}}</td>
+                            <td>
+                              <a href="{% url 'update_voo_real' v.ID %}" class="btn btn-default">Edit</a>
+                              <!-- Split button 
+                              <div class="btn-group">
+                                <select name="status" id="status">
+                                  <option value="Não iniciado">Não iniciado</option>
+                                  <option value="Cancelado">Cancelado</option>
+                                  <option value="Embarcando">Embarcando</option>
+                                  <option value="Programado">Programado</option>
+                                  <option value="Taxiando">Taxiando</option>
+                                  <option value="Pronto">Pronto</option>
+                                  <option value="Decolando">Decolando</option>
+                                  <option value="Em Voo">Em Voo</option>
+                                  <option value="Pousando">Pousando</option>
+                                  <option value="Aterrissado">Aterrissado</option>
+                                </select>
+                              </div>-->
+                          {% endfor %}
+                        </ol>         
+                      </tr>
                     </tr>
                     <tr>
                       
