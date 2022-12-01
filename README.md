@@ -28,10 +28,15 @@ python -m venv env
  .\env\Scripts\activate
 ```
 
-##### Por último utilize o comando:
+##### Por último utilize os comandos:
 
 ```
 pip install django
+```
+e
+
+```
+pip install django-axes
 ```
 
 ###### OBS: Para esses comandos funcionarem é necessário ter o python adicionado ao path. Se não sabe como fazer isso acesse esse link:
