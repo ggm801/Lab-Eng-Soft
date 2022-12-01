@@ -63,6 +63,9 @@ http://localhost:8000
 | Usuario  | Senha | Função |
 | ------------- | ------------- | ------------- |
 | gustavo  | !@#$1234  |Relatorio|
-| admin  | 123  |TUDO|
+| admin  | 123  |TUDO e gestão de usuarios|
 | user1  | pass123word  |CRUD|
-| user2  | pass123word  |Atualizar Voo|
+| user2  | pass123word  |TUDO|
+| user3  | pass123word  |Atualizar|
+| user4  | pass123word  |Atualizar|
+
