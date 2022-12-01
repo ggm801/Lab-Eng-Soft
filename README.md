@@ -58,9 +58,11 @@ Depois, no navegador, acesse o url
 http://localhost:8000
 ```
 
-| Usuario  | Senha |
-| ------------- | ------------- |
-| gustavo  | !@#$1234  |
-| admin  | 123  |
-| user1  | pass123word  |
-| user2  | pass123word  |
+##### Dentro da tela de loguin escolha o usuario para a sua finalidade:
+
+| Usuario  | Senha | Função |
+| ------------- | ------------- | ------------- |
+| gustavo  | !@#$1234  |CRUD|
+| admin  | 123  |TUDO|
+| user1  | pass123word  |Relatorio|
+| user2  | pass123word  |Atualizar Voo|
