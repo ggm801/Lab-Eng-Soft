@@ -3,7 +3,7 @@ from .models import Voo, VooReal
 from django.template import loader
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import VooFormulario, VooFormularioUpdate, RelatorioFormulario
+from .forms import VooFormulario, VooFormularioUpdate, RelatorioFormulario, VooRealFormularioUpdate
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required, permission_required
@@ -54,14 +54,14 @@ def relatorioForm(request):
 @login_required(login_url='/accounts/login')
 @permission_required('book.change_voo_real')
 def vooUpdateForm(request, pk):
-    voo = Voo.objects.get(ID=pk)
-    form1 = VooFormularioUpdate(instance=voo)
+    vooReal1 = VooReal.objects.get(ID=pk)
+    form2 = VooRealFormularioUpdate()
     if request.method == 'POST':
-        form2 = VooFormularioUpdate(request.POST, instance=voo)
+        form2 = VooRealFormularioUpdate(request.POST, instance=vooReal1)
         if form2.is_valid():
             form2.save()
-            return redirect('/crud')
-    context = {'form': form1}
+            return redirect('/atualizarvoo')
+    context = {'form': form2}
     return render(request, 'vooForm.html', context)
 
 
@@ -83,9 +83,10 @@ def My_view(request):
 @login_required(login_url='/accounts/login')
 @permission_required('book.change_voo_real', raise_exception= PermissionDenied)
 def updateflight(request):
+    voo = list(Voo.objects.values())
     vooReal = list(VooReal.objects.values())
     template = loader.get_template("updateflight.html")
-    context = {'voo': vooReal}
+    context = {'vooReal': vooReal}
     return HttpResponse(template.render(context, request))
 
 @login_required(login_url='/accounts/login')

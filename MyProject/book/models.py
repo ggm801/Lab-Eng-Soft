@@ -19,8 +19,8 @@ class Voo(models.Model):
 class VooReal(models.Model):
     ID = models.IntegerField(primary_key=True)
     ID_VOO = models.ForeignKey(Voo, on_delete=models.CASCADE)
-    DH_REAL_SAIDA = models.DateTimeField(auto_now=True)
-    DH_REAL_CHEGADA = models.DateTimeField(auto_now=True)
+    DH_REAL_SAIDA = models.DateTimeField(null=True, blank=True,auto_now=False)
+    DH_REAL_CHEGADA = models.DateTimeField(null=True, blank=True,auto_now=False   )
     NM_STATUS = models.CharField(max_length=50, null=False)
 
     class Meta:
