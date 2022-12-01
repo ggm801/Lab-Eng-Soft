@@ -84,10 +84,12 @@ def My_view(request):
 @login_required(login_url='/accounts/login')
 @permission_required('book.access_atualizar', raise_exception= PermissionDenied)
 def updateflight(request):
-    voo = list(Voo.objects.values())
+    voo = Voo.objects.values()
     vooReal = list(VooReal.objects.values())
+    vooReal = list(voo.values())
+    vooReal =  list(VooReal.objects.select_related("ID_VOO").all())
     template = loader.get_template("updateflight.html")
-    context = {'vooReal': vooReal}
+    context = {'vooReal': vooReal,'voo': voo}
     return HttpResponse(template.render(context, request))
 
 @login_required(login_url='/accounts/login')
