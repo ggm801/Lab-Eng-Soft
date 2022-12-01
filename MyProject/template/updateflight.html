@@ -71,6 +71,7 @@
                     </tr>
                   </thead>
                   <tbody>
+                    {% if perms.book.view_voo_real %}
                         <ol>
                           {% for v in vooReal %}
                           <tr>                        
@@ -79,7 +80,9 @@
                             <td>{{v.DH_REAL_CHEGADA}}</td>
                             <td>{{v.NM_STATUS}}</td>
                             <td>
+                              {% if perms.book.change_voo_real %}
                               <a href="{% url 'update_voo_real' v.ID %}" class="btn btn-default">Edit</a>
+                              {% endif %}  
                               <!-- Split button 
                               <div class="btn-group">
                                 <select name="status" id="status">
@@ -96,7 +99,8 @@
                                 </select>
                               </div>-->
                           {% endfor %}
-                        </ol>         
+                        </ol>   
+                        {% endif %}      
                       </tr>
                     </tr>
                     <tr>
