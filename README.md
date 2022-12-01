@@ -24,8 +24,10 @@ python -m venv env
 
 ```
 .\env\bin\Activate.ps1
-
- .\env\Scripts\activate
+```
+ou
+```
+.\env\Scripts\activate
 ```
 
 ##### Por último utilize os comandos:
@@ -55,3 +57,10 @@ Depois, no navegador, acesse o url
 ```
 http://localhost:8000
 ```
+
+| Usuario  | Senha |
+| ------------- | ------------- |
+| gustavo  | !@#$1234  |
+| admin  | 123  |
+| user1  | pass123word  |
+| user2  | pass123word  |
