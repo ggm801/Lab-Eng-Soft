@@ -26,6 +26,12 @@ python -m venv env
 .\env\bin\Activate.ps1
 ```
 
+##### Por último utilize o comando:
+
+```
+pip install django
+```
+
 ###### OBS: Para esses comandos funcionarem é necessário ter o python adicionado ao path. Se não sabe como fazer isso acesse esse link:
 ###### https://www.javatpoint.com/how-to-set-python-path
 
