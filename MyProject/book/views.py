@@ -3,11 +3,13 @@ from .models import Voo, VooReal
 from django.template import loader
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import VooFormulario, VooFormularioUpdate, RelatorioFormulario, VooRealFormularioUpdate
+from .forms import VooFormulario, VooFormularioUpdate, VooRealFormularioUpdate, FilterForm
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+
+
 
 # Create your views here.
 @login_required(login_url='/accounts/login')
@@ -17,6 +19,7 @@ def crud(request):
     context = {'voo': voo}
     return HttpResponse(template.render(context, request))
 
+
 # Definir: o que é o relatório
 # O que vc precisa pro relatório: datas, quais voos
 # O Forms de inputs de coisas pro relatório
@@ -24,20 +27,8 @@ def crud(request):
 @login_required(login_url='/accounts/login')
 @permission_required('book.access_relatorio', raise_exception= PermissionDenied)
 def relatorio(request) :
-    if request.method == "POST" :
-      #  print('1')
-        form = RelatorioFormulario(request.POST)
-        if form.is_valid():
-        #    print('2')
-            relatorio = form.cleaned_data['relatorio']
-            DH_PREVISTO_CHEGADA_i = form.cleaned_data['DH_PREVISTO_CHEGADA_i']
-            DH_PREVISTO_CHEGADA_f = form.cleaned_data['DH_PREVISTO_CHEGADA_f']
-          #  print(relatorio)
-         #   print(DH_PREVISTO_CHEGADA_i)
-         #   print(DH_PREVISTO_CHEGADA_f)
-            return render(request, "relatorio.html")
-    else:
         return render(request, "relatorio.html")
+
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.add_voo')
@@ -56,18 +47,34 @@ def vooForm(request):
     context = {'form': form}
     return render(request, 'vooForm.html', context)
 
+
 @login_required(login_url='/accounts/login')
 @permission_required('book.generate_relatorio')
-def relatorioForm(request):
-    form = RelatorioFormulario()
+def relatorioAeroporto(request):
     if request.method == 'POST':
-        form = RelatorioFormulario(request.POST)
+        form = FilterForm(request.POST)
         if form.is_valid():
-            form.save()
+            data_inicio = form.cleaned_data['data_inicio'].strftime('%Y-%m-%d')
+            data_fim = form.cleaned_data['data_fim'].strftime('%Y-%m-%d')
+            voos = voo.objects.filter(data__range=[data_inicio, data_fim]).filter(NM_AEROPORTO_SAIDA="Congonhas")
+            contagem = voo.count()
+            list_companhias = []
+            context = {
+                'voos':voos, 
+                'contagem':contagem, 
+                'data_inicio': data_inicio, 
+                'data_fim' : data_fim,
+                'parameters': True,
+            }
+            return render(request, 'relatorioAeroporto.html', context)
+    else:
+            voos = Voo.objects.all()
+            contagem = Voo.objects.count()
+            list_companhias = []
+            for voo in voos:
+                list_companhias.append(voo.NM_COMPANHIA_AEREA)
+            return render(request, 'relatorioAeroporto.html', {'parameters': False,'voos':voos, 'contagem':contagem})
 
-            return redirect('/relatorio')
-    context = {'form': form}
-    return render(request, 'relatorioForm.html', context)
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.change_voo_real')
@@ -82,6 +89,7 @@ def vooUpdateForm(request, pk):
             return redirect('/atualizarvoo')
     context = {'form': form2}
     return render(request, 'vooForm.html', context)
+
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.change_voo')
@@ -98,10 +106,6 @@ def vooUpdateForm2(request, pk):
     return render(request, 'vooForm.html', context)
 
 
-#def login(request):
- #  return render(request, "Login.html")
-
-
 def My_view(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
@@ -113,6 +117,7 @@ def My_view(request):
         return redirect('accounts/login/')
     return render(request, 'registration/Login.html')
 
+
 @login_required(login_url='/accounts/login')
 @permission_required('book.access_atualizar', raise_exception= PermissionDenied)
 def updateflight(request):
@@ -123,6 +128,7 @@ def updateflight(request):
     template = loader.get_template("updateflight.html")
     context = {'vooReal': vooReal,'voo': voo}
     return HttpResponse(template.render(context, request))
+
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.delete_voo')

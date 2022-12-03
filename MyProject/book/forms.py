@@ -13,11 +13,19 @@ class VooFormulario(forms.ModelForm):
 
         #widgets = {"DH_PREVISTO_SAIDA": forms.TimeInput}
 
-
-class RelatorioFormulario(forms.ModelForm):
-    relatorio = forms.CharField(label="Relatorio")
-    DH_PREVISTO_CHEGADA_i = forms.DateField(label="data prevista de chegada inicial")
-    DH_PREVISTO_CHEGADA_f = forms.DateField(label="data prevista de chegada final")
+#class RelatorioFormulario(forms.ModelForm):
+ #       class Meta:
+  #          model = Voo
+   #         relatorio = forms.CharField()
+    #        NOME = forms.TextInput()
+     #       DH_PREVISTO_CHEGADA = forms.DateField()
+      #      DH_PREVISTO_SAIDA = forms.DateField()
+       #     fields = ['Typo_relatorio', 'Nome', 'DH_PREVISTO_CHEGADA', 'DH_PREVISTO_SAIDA']
+        #    labels = {"Typo_relatorio" : "Typo de relatorio", "Nome" :"Nome" , "DH_PREVISTO_CHEGADA" : "HORÁRIO DE CHEGADA","DH_PREVISTO_SAIDA" : "HORÁRIO DE SAIDA"}
+    
+class FilterForm(forms.Form):
+    data_inicio = forms.DateField(label='Data de início do relatório')
+    data_fim = forms.DateField(label='Data de fim do relatório')
     
 
 class VooFormularioUpdate(forms.ModelForm):
