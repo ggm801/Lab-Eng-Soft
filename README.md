@@ -69,3 +69,8 @@ http://localhost:8000
 | user3  | pass123word  |Atualizar|
 | user4  | pass123word  |Atualizar|
 
+### Quinto passo - Validação
+##### Acesse o documento online elaborado pelo grupo 3 para visualizar os testes de verificação
+https://docs.google.com/document/d/1wSJVjkT7KQu89gZl_fc7QPbQWaPXguMn/edit
+
+
