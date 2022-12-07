@@ -23,9 +23,21 @@ def crud(request):
 # fzr pdf
 @login_required(login_url='/accounts/login')
 @permission_required('book.access_relatorio', raise_exception= PermissionDenied)
-def relatorio(request):
-
-    return render(request, "relatorio.html")
+def relatorio(request) :
+    if request.method == "POST" :
+      #  print('1')
+        form = RelatorioFormulario(request.POST)
+        if form.is_valid():
+        #    print('2')
+            relatorio = form.cleaned_data['relatorio']
+            DH_PREVISTO_CHEGADA_i = form.cleaned_data['DH_PREVISTO_CHEGADA_i']
+            DH_PREVISTO_CHEGADA_f = form.cleaned_data['DH_PREVISTO_CHEGADA_f']
+          #  print(relatorio)
+         #   print(DH_PREVISTO_CHEGADA_i)
+         #   print(DH_PREVISTO_CHEGADA_f)
+            return render(request, "relatorio.html")
+    else:
+        return render(request, "relatorio.html")
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.add_voo')
@@ -35,6 +47,11 @@ def vooForm(request):
         form = VooFormulario(request.POST)
         if form.is_valid():
             form.save()
+            id = form.cleaned_data.get("ID_VOO")
+            data_cheg = form.data.get("DH_PREVISTO_CHEGADA")
+            data_saida = form.data.get("DH_PREVISTO_SAIDA")
+            voo1 = Voo.objects.get(ID_VOO=id)
+            VooReal.objects.create(ID_VOO=voo1, DH_REAL_SAIDA=data_saida, DH_REAL_CHEGADA=data_cheg, NM_STATUS='Pousando' )
             return redirect('/crud')
     context = {'form': form}
     return render(request, 'vooForm.html', context)
@@ -47,6 +64,7 @@ def relatorioForm(request):
         form = RelatorioFormulario(request.POST)
         if form.is_valid():
             form.save()
+
             return redirect('/relatorio')
     context = {'form': form}
     return render(request, 'relatorioForm.html', context)
@@ -63,6 +81,20 @@ def vooUpdateForm(request, pk):
             form2.save()
             return redirect('/atualizarvoo')
     context = {'form': form2}
+    return render(request, 'vooForm.html', context)
+
+@login_required(login_url='/accounts/login')
+@permission_required('book.change_voo')
+def vooUpdateForm2(request, pk):
+    voo1 = Voo.objects.get(ID=pk)
+    initial_data={'ID' : voo1.ID}
+    form = VooFormularioUpdate(initial=initial_data)
+    if request.method == 'POST':
+        form = VooFormularioUpdate(request.POST, instance=voo1)
+        if form.is_valid():
+            form.save()
+            return redirect('/crud')
+    context = {'form': form}
     return render(request, 'vooForm.html', context)
 
 
@@ -85,8 +117,8 @@ def My_view(request):
 @permission_required('book.access_atualizar', raise_exception= PermissionDenied)
 def updateflight(request):
     voo = Voo.objects.values()
-    vooReal = list(VooReal.objects.values())
-    vooReal = list(voo.values())
+   #vooReal = list(VooReal.objects.values())
+    #vooReal = list(voo.values())
     vooReal =  list(VooReal.objects.select_related("ID_VOO").all())
     template = loader.get_template("updateflight.html")
     context = {'vooReal': vooReal,'voo': voo}
@@ -101,3 +133,4 @@ def deleteVoo(request, pk):
         return redirect('/crud')
     context = { 'item': voo }
     return render(request, 'deleteVoo.html', context)
+
