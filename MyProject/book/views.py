@@ -8,8 +8,11 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
+from django.utils import timezone
 
-# Create your views here.
+
+#CRUD Page
+
 @login_required(login_url='/accounts/login')
 def crud(request):
     voo = list(Voo.objects.values())
@@ -17,10 +20,9 @@ def crud(request):
     context = {'voo': voo}
     return HttpResponse(template.render(context, request))
 
-# Definir: o que é o relatório
-# O que vc precisa pro relatório: datas, quais voos
-# O Forms de inputs de coisas pro relatório
-# fzr pdf
+
+# Relatorio Page
+
 @login_required(login_url='/accounts/login')
 @permission_required('book.access_relatorio', raise_exception= PermissionDenied)
 def relatorio(request) :
@@ -39,6 +41,9 @@ def relatorio(request) :
     else:
         return render(request, "relatorio.html")
 
+
+#Addicionar Voo Form
+
 @login_required(login_url='/accounts/login')
 @permission_required('book.add_voo')
 def vooForm(request):
@@ -51,10 +56,13 @@ def vooForm(request):
             data_cheg = form.data.get("DH_PREVISTO_CHEGADA")
             data_saida = form.data.get("DH_PREVISTO_SAIDA")
             voo1 = Voo.objects.get(ID_VOO=id)
-            VooReal.objects.create(ID_VOO=voo1, DH_REAL_SAIDA=data_saida, DH_REAL_CHEGADA=data_cheg, NM_STATUS='Pousando' )
+            VooReal.objects.create(ID_VOO=voo1, DH_REAL_SAIDA=data_saida, DH_REAL_CHEGADA=data_cheg )
             return redirect('/crud')
     context = {'form': form}
     return render(request, 'vooForm.html', context)
+
+
+#Relatorio Form
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.generate_relatorio')
@@ -69,25 +77,64 @@ def relatorioForm(request):
     context = {'form': form}
     return render(request, 'relatorioForm.html', context)
 
+
+
+#Atualizar dados do voo Real : AtualizarVoo
+#Atualiza o status se é possivel e atualiza os horarios quando o status "Em Voo" e "Atterissado" são atualizados
+
 @login_required(login_url='/accounts/login')
 @permission_required('book.change_voo_real')
 def vooUpdateForm(request, pk):
     vooReal1 = VooReal.objects.get(ID=pk)
-    initial_data={'DH_REAL_CHEGADA':vooReal1.DH_REAL_CHEGADA,'DH_REAL_SAIDA':vooReal1.DH_REAL_SAIDA,'NM_STATUS':vooReal1.NM_STATUS}
-    form2 = VooRealFormularioUpdate(initial=initial_data)
+    status_atual = vooReal1.NM_STATUS
+    form2 = VooRealFormularioUpdate()
     if request.method == 'POST':
         form2 = VooRealFormularioUpdate(request.POST, instance=vooReal1)
-        if form2.is_valid():
-            form2.save()
+        if status_atual=="EM" :
+            if form2.data.get('NM_STATUS')=="Cancelado" or form2.data.get('NM_STATUS')=="Programado" :
+                form2.save()
+        else : 
+            if check_status_order_partida(status_atual, form2.data.get('NM_STATUS') ) :
+                if form2.data.get('NM_STATUS') == 'Em voo' :
+                    vooReal1.DH_REAL_SAIDA=timezone.localtime(timezone.now())
+                    form2.save()
+                elif form2.data.get('NM_STATUS') == 'Atterissado' :
+                    vooReal1.DH_REAL_CHEGADA=timezone.localtime(timezone.now())
+                    form2.save()
+                else : form2.save()
             return redirect('/atualizarvoo')
     context = {'form': form2}
     return render(request, 'vooForm.html', context)
+
+
+#Fonção para verificar que a atualização do voo é possivel
+
+def check_status_order_partida(status_now, status_applied):
+    status_order = {'Programado': 1,
+        'Embarcando': 2,
+        'Cancelado': 9,
+        'Taxeando': 3,
+        'Pronto': 4,
+        'Autorizado': 5,
+        'Em voo': 6,
+        'Pousando': 7,
+        'Atterissado': 8, 
+    }
+    
+    if status_order[status_now] + 1 ==  status_order[status_applied]:
+        return status_applied
+    else:
+        return False
+
+
+
+#Update Voo CRUD Page
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.change_voo')
 def vooUpdateForm2(request, pk):
     voo1 = Voo.objects.get(ID=pk)
-    initial_data={'ID' : voo1.ID}
+    initial_data={'ID' : voo1.ID, 'DH_PREVISTO_SAIDA' : voo1.DH_PREVISTO_SAIDA,'DH_PREVISTO_CHEGADA' : voo1.DH_PREVISTO_CHEGADA, 'NM_AEROPORTO_SAIDA' : voo1.NM_AEROPORTO_SAIDA, 'NM_AEROPORTO_CHEGADA' : voo1.NM_AEROPORTO_CHEGADA,'NM_COMPANHIA_AEREA': voo1.NM_COMPANHIA_AEREA, 'ID_VOO':voo1.ID_VOO}
     form = VooFormularioUpdate(initial=initial_data)
     if request.method == 'POST':
         form = VooFormularioUpdate(request.POST, instance=voo1)
@@ -98,9 +145,7 @@ def vooUpdateForm2(request, pk):
     return render(request, 'vooForm.html', context)
 
 
-#def login(request):
- #  return render(request, "Login.html")
-
+#Login Page
 
 def My_view(request):
     username = request.POST.get('username')
@@ -113,16 +158,20 @@ def My_view(request):
         return redirect('accounts/login/')
     return render(request, 'registration/Login.html')
 
+
+#AtualizarVoo Page
+
 @login_required(login_url='/accounts/login')
 @permission_required('book.access_atualizar', raise_exception= PermissionDenied)
 def updateflight(request):
     voo = Voo.objects.values()
-   #vooReal = list(VooReal.objects.values())
-    #vooReal = list(voo.values())
     vooReal =  list(VooReal.objects.select_related("ID_VOO").all())
     template = loader.get_template("updateflight.html")
     context = {'vooReal': vooReal,'voo': voo}
     return HttpResponse(template.render(context, request))
+
+
+#DeleteVoo
 
 @login_required(login_url='/accounts/login')
 @permission_required('book.delete_voo')

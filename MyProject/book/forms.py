@@ -13,12 +13,10 @@ class VooFormulario(forms.ModelForm):
 
         #widgets = {"DH_PREVISTO_SAIDA": forms.TimeInput}
 
-
 class RelatorioFormulario(forms.ModelForm):
-    relatorio = forms.CharField(label="Relatorio")
-    DH_PREVISTO_CHEGADA_i = forms.DateField(label="data prevista de chegada inicial")
-    DH_PREVISTO_CHEGADA_f = forms.DateField(label="data prevista de chegada final")
-    
+    class Meta:
+        model = Voo
+        fields = ['DH_PREVISTO_SAIDA','DH_PREVISTO_CHEGADA','NM_AEROPORTO_SAIDA','NM_AEROPORTO_CHEGADA']
 
 class VooFormularioUpdate(forms.ModelForm):
     class Meta:
@@ -30,15 +28,20 @@ class VooFormularioUpdate(forms.ModelForm):
                   "NM_AEROPORTO_CHEGADA": "AEROPORTO CHEGADA", "NM_COMPANHIA_AEREA": "COMPANHIA AEREA"}
 
 
-CHOICES = [('pronto','pronto'),('cancelado','cancelado'),('Não iniciado','Não iniciado'),('Embarcando','Embarcando'),('Programado','Programado'),('Taxiando','Taxiando'),('Decolando','Decolando'),('Em Voo','Em Voo'),('Pousando','Pousando'),('Aterrissado','Aterrissado'),]
-
-
+departure_status_choices = [('Programado', 'Programado'),
+        ('Embarcando', 'Embarcando'),
+        ('Cancelado', 'Cancelado'),
+        ('Taxeando', 'Taxeando'),
+        ('Pronto', 'Pronto'),
+        ('Autorizado', 'Autorizado'),
+        ('Em voo', 'Em voo'),
+        ('Pousando', 'Pousando'),
+        ('Atterissado', 'Atterissado'),
+    ]
 
 class VooRealFormularioUpdate(forms.ModelForm):
-        NM_STATUS = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
-        DH_REAL_SAIDA =  forms.DateTimeField(required = False)
-        DH_REAL_CHEGADA =  forms.DateTimeField(required = False)
-        class Meta:
+      NM_STATUS = forms.ChoiceField(widget=forms.RadioSelect, choices=departure_status_choices)
+      class Meta:
             model = VooReal
-            fields = ['DH_REAL_SAIDA', 'DH_REAL_CHEGADA', 'NM_STATUS']
-            labels = {"DH_REAL_SAIDA" : "HORÁRIO DE SAIDA REAL", "DH_REAL_CHEGADA" :"HORÁRIO DE CHEGADA PREVISTO" , "NM_STATUS" : "STATUS DO VOO"}
+            fields = ['NM_STATUS']
+            labels = {"NM_STATUS" : "NM_STATUS"}
