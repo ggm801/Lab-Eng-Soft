@@ -51,19 +51,52 @@ def relatorioForm(request):
     context = {'form': form}
     return render(request, 'relatorioForm.html', context)
 
+
+CHOICES = ["Nao programado", "embarcando", "em voo"]
+
 @login_required(login_url='/accounts/login')
 @permission_required('book.change_voo_real')
 def vooUpdateForm(request, pk):
     vooReal1 = VooReal.objects.get(ID=pk)
+    status_atual = vooReal1.NM_STATUS
     initial_data={'DH_REAL_CHEGADA':vooReal1.DH_REAL_CHEGADA,'DH_REAL_SAIDA':vooReal1.DH_REAL_SAIDA,'NM_STATUS':vooReal1.NM_STATUS}
-    form2 = VooRealFormularioUpdate(initial=initial_data)
+    form2 = VooRealFormularioUpdate()
+
     if request.method == 'POST':
         form2 = VooRealFormularioUpdate(request.POST, instance=vooReal1)
+        if status_atual=="EM" :
+            if form2.NM_STATUS=="CA" or form2.NM_STATUS=="PR" :
+                form2.save()
+        else : 
+            if check_status_order_partida(status_atual, form2.NM_STATUS ) :
+                form2.save()
+
+
+
         if form2.is_valid():
             form2.save()
             return redirect('/atualizarvoo')
     context = {'form': form2}
     return render(request, 'vooForm.html', context)
+
+
+
+def check_status_order_partida(status_now, status_applied):
+    status_order = {
+        'EM': 1,
+        'CA': 10, #cancelado nao pode mudar de status
+        'PR': 2,
+        'TA': 3,
+        'PO': 4,
+        'AU': 5,
+        'VO': 6,
+        'AT': 10, #atterisado nao existe
+    }
+    
+    if status_order[status_now] + 1 ==  status_order[status_applied]:
+        return status_applied
+    else:
+        return False
 
 
 #def login(request):

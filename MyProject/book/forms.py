@@ -29,12 +29,20 @@ class VooFormularioUpdate(forms.ModelForm):
 
 
 CHOICES = [('pronto','pronto'),('cancelado','cancelado'),('Não iniciado','Não iniciado'),('Embarcando','Embarcando'),('Programado','Programado'),('Taxiando','Taxiando'),('Decolando','Decolando'),('Em Voo','Em Voo'),('Pousando','Pousando'),('Aterrissado','Aterrissado'),]
+departure_status_choices = [
+        ('EM', 'Embarcando'),
+        ('CA', 'Cancelado'),
+        ('PR', 'Programado'),
+        ('TA', 'Taxeando'),
+        ('PO', 'Pronto'),
+        ('AU', 'Autorizado'),
+        ('VO', 'Em voo'),
+    ]
+
 
 class VooRealFormularioUpdate(forms.ModelForm):
-        NM_STATUS = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
-        DH_REAL_SAIDA =  forms.DateTimeField(required = False)
-        DH_REAL_CHEGADA =  forms.DateTimeField(required = False)
-        class Meta:
+      NM_STATUS = forms.ChoiceField(widget=forms.RadioSelect, choices=departure_status_choices)
+      class Meta:
             model = VooReal
-            fields = ['DH_REAL_SAIDA', 'DH_REAL_CHEGADA', 'NM_STATUS']
-            labels = {"DH_REAL_SAIDA" : "HORÁRIO DE SAIDA REAL", "DH_REAL_CHEGADA" :"HORÁRIO DE CHEGADA PREVISTO" , "NM_STATUS" : "STATUS DO VOO"}
+            fields = ['NM_STATUS']
+            labels = {"NM_STATUS" : "STATUS DO VOO"}

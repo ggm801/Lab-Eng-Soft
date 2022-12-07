@@ -17,11 +17,20 @@ class Voo(models.Model):
 
 
 class VooReal(models.Model):
+    departure_status_choices = [
+        ('EM', 'Embarcando'),
+        ('CA', 'Cancelado'),
+        ('PR', 'Programado'),
+        ('TA', 'Taxeando'),
+        ('PO', 'Pronto'),
+        ('AU', 'Autorizado'),
+        ('VO', 'Em voo'),
+    ]
     ID = models.IntegerField(primary_key=True)
     ID_VOO = models.ForeignKey(Voo, on_delete=models.CASCADE)
     DH_REAL_SAIDA = models.DateTimeField(null=True, blank=True,auto_now=False)
     DH_REAL_CHEGADA = models.DateTimeField(null=True, blank=True,auto_now=False   )
-    NM_STATUS = models.CharField(max_length=50, null=False)
+    NM_STATUS = models.CharField(max_length=50, null=False, choices=departure_status_choices, default='EM')
 
     class Meta:
         db_table = 'VooReal'
