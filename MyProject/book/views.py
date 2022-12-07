@@ -70,12 +70,20 @@ def relatorioForm(request):
     form = RelatorioFormulario()
     if request.method == 'POST':
         form = RelatorioFormulario(request.POST)
-        if form.is_valid():
-            form.save()
-
-            return redirect('/relatorio')
-    context = {'form': form}
+        data_inicio = form.data.get('data_inicio')
+        data_fim = form.data.get('data_fim')
+        voos = VooReal.objects.filter(DH_REAL_SAIDA__range=[data_inicio, data_fim])
+        contagem = voos.count()
+        context = {
+                'voos':voos, 
+                'contagem':contagem, 
+                'data_inicio': data_inicio, 
+                'data_fim' : data_fim,
+            }
+        return render(request, 'relatorio.html', context)
+    context={'form' : form}
     return render(request, 'relatorioForm.html', context)
+
 
 
 

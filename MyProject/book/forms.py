@@ -1,5 +1,5 @@
 from django import forms
-from .models import Voo, VooReal
+from .models import Voo, VooReal, Relatorio
 
 
 class VooFormulario(forms.ModelForm):
@@ -15,8 +15,10 @@ class VooFormulario(forms.ModelForm):
 
 class RelatorioFormulario(forms.ModelForm):
     class Meta:
-        model = Voo
-        fields = ['DH_PREVISTO_SAIDA','DH_PREVISTO_CHEGADA','NM_AEROPORTO_SAIDA','NM_AEROPORTO_CHEGADA']
+        model = Relatorio
+        fields = ['data_inicio','data_fim']
+        labels = {"data_inicio": "Data de inicio",
+                  "data_fim": "Data de fim",}
 
 class VooFormularioUpdate(forms.ModelForm):
     class Meta:

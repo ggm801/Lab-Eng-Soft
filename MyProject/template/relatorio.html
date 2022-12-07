@@ -45,61 +45,49 @@
           <div class="row">
             <div class="col-md-12">
               <form role="form" id="templatemo-preferences-form">
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="Id" class="control-label">Buscar voo por ID</label>
+                    <input type="text" class="form-control" id="id" value="">
+                  </div>
+                </div>
             </div>
           </div>
 
-
-          <h1>Gerar relatórios</h1>
-
-          <div>
-            <p>Tipo de relatório por:</p>
-            <form method="POST" >
-              {% csrf_token %}
-              <select id="relatorio" name="relatorio" class="form-select" aria-label="Default select example">
-                <option value="aeroporto">Aeroporto</option>
-                <option value="companhia">Companhia</option>
-              </select>
-              <br>
-              <input type="date" name="initial-date" id="DH_PREVISTO_CHEGADA_i">
-              <label for="DH_PREVISTO_CHEGADA_i">Data inicial</label>
-              <br>
-              <input type="date" name="final-date" id="DH_PREVISTO_CHEGADA_f">
-              <label for="DH_PREVISTO_CHEGADA_f">Data final</label>
-              <br>
-              <input type="submit" value="Submit">
-            </form>
-          </div>
-
+          <h1>Atualizar voos</h1>
 
           <div class="row">
             <div class="col-md-12">
-    
-                  <!-- Modal -->
-                  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal"><span
-                              aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                          <h4 class="modal-title" id="myModalLabel">Are you sure you want to sign out?</h4>
-                        </div>
-                        <div class="modal-footer">
-                          <a href="sign-in.html" class="btn btn-primary">Yes</a>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-    
-                  <footer class="templatemo-footer">
-                    <div class="templatemo-copyright">
-                      <p>Copyright &copy; PCS3643 - Laboratório de Engenharia de Software I
-                        <!-- Credit: www.templatemo.com -->
-                      </p>
-                    </div>
-                  </footer>
-                </div>
+              <div class="table-responsive">
+                <a href="{% url 'relatorioForm' %}" class="btn btn-default">Edit</a>
+                <h4 class="margin-bottom-15">New Voos Table</h4>
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Número do voo</th>
+                      <th>Horário de Saida Real</th>
+                      <th>Horário de Chegada Real</th>
+                      <th>Status</th>
+                      <th>Atualizar Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                        <ol>
+                          {% for v in voos%}
+                          <tr>                    
+                            <td>{{v.ID_VOO.ID_VOO}}</td>
+                            <td>{{v.DH_REAL_SAIDA}}</td>
+                            <td>{{v.DH_REAL_CHEGADA}}</td>
+                            <td>{{v.NM_STATUS}}</td>
+                            <td>
+                              {% endfor %}    
+                        </ol>       
+                      </tr>
+                    </tr>
+                    <tr>
+                      
+                  </tbody>
+                </table>
               </div>
 
               <!-- Modal -->

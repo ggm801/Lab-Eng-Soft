@@ -25,7 +25,7 @@ urlpatterns = [
     path('relatorio', views.relatorio, name='relatorio'),
     path('atualizarvoo', views.updateflight, name='atualizarvoo'),
     path('formPage', views.vooForm),
-    path('relatorioFormPage', views.relatorioForm),
+    path('relatorioFormPage', views.relatorioForm, name='relatorioForm'),
     path('update_voo/<str:pk>', views.vooUpdateForm2, name='update_voo'),
     path('delete_voo/<str:pk>', views.deleteVoo, name='delete_voo'),
     path('update_voo_real/<str:pk>', views.vooUpdateForm, name='update_voo_real')

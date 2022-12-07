@@ -47,6 +47,12 @@ class Usuario(models.Model):
     class Meta:
         db_table = 'Usuario'
 
+class Relatorio(models.Model):
+    data_inicio = models.DateTimeField(null=True, blank=True,auto_now=False)
+    data_fim = models.DateTimeField(null=True, blank=True,auto_now=False   )
+    class Meta:
+        db_table = 'Relatorio'
+
 class User(models.Model):
   
     class Meta:
