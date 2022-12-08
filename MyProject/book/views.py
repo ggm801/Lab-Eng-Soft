@@ -207,7 +207,7 @@ def busca_voo(request):
 @login_required(login_url='/accounts/login')
 @permission_required('book.generate_relatorio')
 def RelatorioCompanhia(request):
-    queryset = Voo.objects.all()
+    queryset = list(VooReal.objects.select_related("ID_VOO").all())
     form = CompanhiaRelatorio(request.POST or None)
     
     context = {
@@ -216,7 +216,7 @@ def RelatorioCompanhia(request):
     }
     
     if request.method == 'POST':
-        queryset = Voo.objects.filter(DH_PREVISTO_SAIDA__gte = form['DH_PREVISTO_SAIDA'].value(), DH_PREVISTO_CHEGADA__lte = form['DH_PREVISTO_CHEGADA'].value(), NM_COMPANHIA_AEREA=form['NM_COMPANHIA_AEREA'].value())
+        queryset = list(VooReal.objects.select_related("ID_VOO").filter(DH_REAL_SAIDA__gte = form['DH_PREVISTO_SAIDA'].value(), DH_REAL_CHEGADA__lte = form['DH_PREVISTO_CHEGADA'].value(), ID_VOO__NM_COMPANHIA_AEREA__contains=form['NM_COMPANHIA_AEREA'].value()))
 
         context={
             "queryset": queryset,
@@ -228,7 +228,7 @@ def RelatorioCompanhia(request):
 @login_required(login_url='/accounts/login')
 @permission_required('book.generate_relatorio')
 def RelatorioAeroporto(request):
-    queryset = Voo.objects.all()
+    queryset = list(VooReal.objects.select_related("ID_VOO").all())
     form = AeroportoRelatorio(request.POST or None)
     
     context = {
@@ -237,7 +237,7 @@ def RelatorioAeroporto(request):
     }
     
     if request.method == 'POST':
-        queryset = Voo.objects.filter(DH_PREVISTO_SAIDA__gte = form['DH_PREVISTO_SAIDA'].value(), DH_PREVISTO_CHEGADA__lte = form['DH_PREVISTO_CHEGADA'].value(), NM_AEROPORTO_SAIDA=form['NM_AEROPORTO_SAIDA'].value())
+        queryset = list(VooReal.objects.select_related("ID_VOO").filter(DH_REAL_SAIDA__gte = form['DH_PREVISTO_SAIDA'].value(), DH_REAL_CHEGADA__lte = form['DH_PREVISTO_CHEGADA'].value(), ID_VOO__NM_AEROPORTO_SAIDA__contains=form['NM_AEROPORTO_SAIDA'].value()))
 
         context={
             "queryset": queryset,

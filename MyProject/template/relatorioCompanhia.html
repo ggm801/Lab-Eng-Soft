@@ -53,11 +53,12 @@
                   <form method='POST' action=''>{% csrf_token %}
                     <div class="row">
                       <div class="col-md-6 margin-bottom-15">
-                       {{form}}
+                        <br/>
+                       {{form.as_table}}
                        <input type='submit' value='Buscar' />
                   </form>
                   <br></br>
-                  <a href="{% url 'relatorio' %}">Voltar para o relatorio</a>
+                  <a href="{% url 'relatorio' %}">Voltar para o relatório</a>
 
 
                       </div>
@@ -75,25 +76,23 @@
                   <thead>
                     <tr>
                       <th>Número do voo</th>
-                      <th>Previsto Saida</th>
-                      <th>Previsto Chegada</th>
+                      <th>Real Saida</th>
+                      <th>Real Chegada</th>
                       <th>Aeroporto Saida</th>
                       <th>Aeroporto Chegada</th>
                       <th>Companhia Aerea</th>
-                      <th>Editar</th>
-                      <th>Deletar</th>
                     </tr>
                   </thead>
                   <tbody>
                     <ol>
                       {% for v in queryset %}
                       <tr>
-                        <td>{{v.ID_VOO}}</td>
-                        <td>{{v.DH_PREVISTO_SAIDA}}</td>
-                        <td>{{v.DH_PREVISTO_CHEGADA}}</td>
-                        <td>{{v.NM_AEROPORTO_SAIDA}}</td>
-                        <td>{{v.NM_AEROPORTO_CHEGADA}}</td>
-                        <td>{{v.NM_COMPANHIA_AEREA}}</td>
+                        <td>{{v.ID_VOO.ID_VOO}}</td>
+                        <td>{{v.DH_REAL_SAIDA}}</td>
+                        <td>{{v.DH_REAL_CHEGADA}}</td>
+                        <td>{{v.ID_VOO.NM_AEROPORTO_SAIDA}}</td>
+                        <td>{{v.ID_VOO.NM_AEROPORTO_CHEGADA}}</td>
+                        <td>{{v.ID_VOO.NM_COMPANHIA_AEREA}}</td>
                       </tr>
                       <tr>
                         {% endfor %}

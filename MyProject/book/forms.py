@@ -57,8 +57,10 @@ class CompanhiaRelatorio(forms.ModelForm):
     class Meta:
         model = Voo
         fields=['DH_PREVISTO_SAIDA', 'DH_PREVISTO_CHEGADA', 'NM_COMPANHIA_AEREA']
+        labels={"DH_PREVISTO_SAIDA": "DATA SAIDA", "DH_PREVISTO_CHEGADA": "DATA CHEGADA", "NM_COMPANHIA_AEREA": "COMPANHIA AEREA"}
 
 class AeroportoRelatorio(forms.ModelForm):
     class Meta:
         model = Voo
         fields=['DH_PREVISTO_SAIDA', 'DH_PREVISTO_CHEGADA', 'NM_AEROPORTO_SAIDA']
+        labels={"DH_PREVISTO_SAIDA": "DATA SAIDA", "DH_PREVISTO_CHEGADA": "DATA CHEGADA", "NM_AEROPORTO_SAIDA": "AEROPORTO SAIDA"}
