@@ -50,9 +50,16 @@
 
               <div class="row">
                 <div class="col-md-12">
+                  <form method='POST' action=''>{% csrf_token %}
                     <div class="row">
                       <div class="col-md-6 margin-bottom-15">
-                        <a href="{% url 'search_voo' %}">Buscar Voo</a>
+                       {{form}}
+                       <input type='submit' value='Buscar' />
+                  </form>
+                  <br></br>
+                  <a href="{% url 'relatorio' %}">Voltar para o relatorio</a>
+
+
                       </div>
                     </div>
                 </div>
@@ -63,9 +70,6 @@
               <div class="table-responsive">
                 <h4 class="margin-bottom-15">New Voos Table</h4>
                 <h4>
-                  {% if perms.book.add_voo %}
-                  <td><a href="formPage" class="btn btn-default">Adicionar Voo</a></td>
-                  {% endif %}
                 </h4>
                 <table class="table table-striped table-hover table-bordered">
                   <thead>
@@ -81,9 +85,8 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {% if perms.book.view_voo %}
                     <ol>
-                      {% for v in voo %}
+                      {% for v in queryset %}
                       <tr>
                         <td>{{v.ID_VOO}}</td>
                         <td>{{v.DH_PREVISTO_SAIDA}}</td>
@@ -91,17 +94,10 @@
                         <td>{{v.NM_AEROPORTO_SAIDA}}</td>
                         <td>{{v.NM_AEROPORTO_CHEGADA}}</td>
                         <td>{{v.NM_COMPANHIA_AEREA}}</td>
-                        {% if perms.book.change_voo %}
-                        <td><a href="{% url 'update_voo' v.ID %}" class="btn btn-default">Edit</a></td>
-                        {% endif %}
-                        {% if perms.book.delete_voo %}
-                        <td><a href="{% url 'delete_voo' v.ID %}" class="btn btn-link">Delete</a></td>
-                        {% endif %}
                       </tr>
                       <tr>
                         {% endfor %}
                     </ol>
-                    {% endif %}
 
                   </tbody>
                   <tbody>

@@ -28,6 +28,8 @@ urlpatterns = [
     path('relatorioFormPage', views.relatorioForm),
     path('update_voo/<str:pk>', views.vooUpdateForm2, name='update_voo'),
     path('delete_voo/<str:pk>', views.deleteVoo, name='delete_voo'),
-    path('update_voo_real/<str:pk>', views.vooUpdateForm, name='update_voo_real')
-
+    path('update_voo_real/<str:pk>', views.vooUpdateForm, name='update_voo_real'),
+    path('crudsearch', views.busca_voo, name= 'search_voo'),
+    path('companhiaRelatorio', views.RelatorioCompanhia, name='companhia_relatorio'),
+    path('aeroportoRelatorio', views.RelatorioAeroporto, name='aeroporto_relatorio'),
 ]

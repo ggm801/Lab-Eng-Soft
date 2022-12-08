@@ -3,7 +3,7 @@ from .models import Voo, VooReal
 from django.template import loader
 from django.http import HttpResponse
 from django.shortcuts import render
-from .forms import VooFormulario, VooFormularioUpdate, RelatorioFormulario, VooRealFormularioUpdate
+from .forms import VooFormulario, VooFormularioUpdate, RelatorioFormulario, VooRealFormularioUpdate, SearchCRUD, CompanhiaRelatorio, AeroportoRelatorio
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required, permission_required
@@ -183,3 +183,65 @@ def deleteVoo(request, pk):
     context = { 'item': voo }
     return render(request, 'deleteVoo.html', context)
 
+
+@login_required(login_url='/accounts/login')
+@permission_required('book.add_voo')
+def busca_voo(request):
+    title= 'Lista Voo'
+    queryset = Voo.objects.all()
+    form = SearchCRUD(request.POST or None)
+    
+    context = {
+        "queryset" : queryset,
+        "form": form,
+    }
+    if request.method == 'POST':
+        queryset = Voo.objects.filter(ID_VOO=form['ID'].value())
+        
+        context = {
+        "queryset" : queryset,
+        "form": form,
+    }
+    return render (request, "CRUDSearch.html", context)
+
+@login_required(login_url='/accounts/login')
+@permission_required('book.generate_relatorio')
+def RelatorioCompanhia(request):
+    queryset = Voo.objects.all()
+    form = CompanhiaRelatorio(request.POST or None)
+    
+    context = {
+        "queryset" : queryset,
+        "form" : form,
+    }
+    
+    if request.method == 'POST':
+        queryset = Voo.objects.filter(DH_PREVISTO_SAIDA__gte = form['DH_PREVISTO_SAIDA'].value(), DH_PREVISTO_CHEGADA__lte = form['DH_PREVISTO_CHEGADA'].value(), NM_COMPANHIA_AEREA=form['NM_COMPANHIA_AEREA'].value())
+
+        context={
+            "queryset": queryset,
+            "form": form,
+        }
+        
+    return render(request, "relatorioCompanhia.html", context)
+
+@login_required(login_url='/accounts/login')
+@permission_required('book.generate_relatorio')
+def RelatorioAeroporto(request):
+    queryset = Voo.objects.all()
+    form = AeroportoRelatorio(request.POST or None)
+    
+    context = {
+        "queryset" : queryset,
+        "form" : form,
+    }
+    
+    if request.method == 'POST':
+        queryset = Voo.objects.filter(DH_PREVISTO_SAIDA__gte = form['DH_PREVISTO_SAIDA'].value(), DH_PREVISTO_CHEGADA__lte = form['DH_PREVISTO_CHEGADA'].value(), NM_AEROPORTO_SAIDA=form['NM_AEROPORTO_SAIDA'].value())
+
+        context={
+            "queryset": queryset,
+            "form": form,
+        }
+        
+    return render(request, "relatorioAeroporto.html", context)

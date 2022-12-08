@@ -53,21 +53,9 @@
 
           <div>
             <p>Tipo de relatório por:</p>
-            <form method="POST" >
-              {% csrf_token %}
-              <select id="relatorio" name="relatorio" class="form-select" aria-label="Default select example">
-                <option value="aeroporto">Aeroporto</option>
-                <option value="companhia">Companhia</option>
-              </select>
-              <br>
-              <input type="date" name="initial-date" id="DH_PREVISTO_CHEGADA_i">
-              <label for="DH_PREVISTO_CHEGADA_i">Data inicial</label>
-              <br>
-              <input type="date" name="final-date" id="DH_PREVISTO_CHEGADA_f">
-              <label for="DH_PREVISTO_CHEGADA_f">Data final</label>
-              <br>
-              <input type="submit" value="Submit">
-            </form>
+            <a href="{% url 'companhia_relatorio' %}">Companhia</a>
+            <br/>
+            <a href="{% url 'aeroporto_relatorio' %}">Aeroporto</a>
           </div>
 
 

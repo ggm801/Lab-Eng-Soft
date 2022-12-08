@@ -45,3 +45,20 @@ class VooRealFormularioUpdate(forms.ModelForm):
             model = VooReal
             fields = ['NM_STATUS']
             labels = {"NM_STATUS" : "NM_STATUS"}
+            
+
+class SearchCRUD(forms.ModelForm):
+    class Meta:
+        model = Voo
+        fields =['ID']
+        
+
+class CompanhiaRelatorio(forms.ModelForm):
+    class Meta:
+        model = Voo
+        fields=['DH_PREVISTO_SAIDA', 'DH_PREVISTO_CHEGADA', 'NM_COMPANHIA_AEREA']
+
+class AeroportoRelatorio(forms.ModelForm):
+    class Meta:
+        model = Voo
+        fields=['DH_PREVISTO_SAIDA', 'DH_PREVISTO_CHEGADA', 'NM_AEROPORTO_SAIDA']
