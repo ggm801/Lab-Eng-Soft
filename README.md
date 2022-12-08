@@ -55,7 +55,7 @@ python manage.py runserver
 Depois, no navegador, acesse o url
 
 ```
-http://localhost:8000
+http://127.0.0.1:8000/accounts/login/
 ```
 ### Quarto passo - Acesso
 ##### Dentro da tela de loguin escolha o usuario para a sua finalidade:
