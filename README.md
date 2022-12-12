@@ -74,9 +74,7 @@ http://127.0.0.1:8000/accounts/login/
 python manage.py axes_reset
 ```
 
-### Quinto passo - Validação
-##### Acesse o documento online elaborado pelo grupo 3 para visualizar os testes de verificação
-https://docs.google.com/document/d/1wSJVjkT7KQu89gZl_fc7QPbQWaPXguMn/edit
-
-
+### Quinto passo - Documentação do Sistema
+##### Acesse o documento online elaborado pelo grupo 3 contendo toda a construção de engenharia de software do projeto:
+https://docs.google.com/document/d/1FLYa0o70EEvia0n3kNcySzXMVhK6HvmTMAmDglsh4VQ/edit?usp=sharing
 
